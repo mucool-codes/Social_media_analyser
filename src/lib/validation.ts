@@ -22,7 +22,7 @@ export function validateFileMeta({ name, size, type }: FileMeta): ValidationResu
   }
 
   if (size <= 0) {
-    return { ok: false, code: "VALIDATION_ERROR", message: "That file appears to be empty." };
+    return { ok: false, code: "EMPTY_FILE", message: "That file appears to be empty." };
   }
 
   if (size > MAX_FILE_BYTES) {

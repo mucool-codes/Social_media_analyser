@@ -1,10 +1,3 @@
-/**
- * PROVISIONAL — the EXECUTION_PLAN.md §3 type block was not supplied to this session
- * (see question S0-Q1). Authored from the spec's hints (ok/fail helpers, 501 stub
- * responses, extract/analyze endpoints). Treat as a draft the architect can override;
- * do not treat as final until S0-Q1 is answered.
- */
-
 // ---------------------------------------------------------------------------
 // Errors
 // ---------------------------------------------------------------------------
@@ -14,8 +7,12 @@ export type ApiErrorCode =
   | "UNSUPPORTED_FILE_TYPE"
   | "FILE_TOO_LARGE"
   | "TOO_MANY_PAGES"
+  | "EMPTY_FILE"
   | "EXTRACTION_FAILED"
+  | "PARSE_FAILED"
+  | "NO_TEXT_FOUND"
   | "ANALYSIS_FAILED"
+  | "RATE_LIMITED"
   | "NOT_IMPLEMENTED"
   | "INTERNAL";
 
@@ -47,14 +44,26 @@ export type ExtractionMethod = "pdf-parse" | "ocr";
 export interface ExtractedPage {
   pageNumber: number;
   text: string;
+  /** OCR only, 0-100. Absent for pdf-parse-derived pages. */
+  confidence?: number;
 }
 
-export interface ExtractResponseData {
+export interface ExtractedDocMeta {
   fileName: string;
   fileType: AcceptedMimeType;
+  sizeBytes: number;
+  pageCount: number;
+  durationMs: number;
+  /** OCR only. Absent when method is "pdf-parse". */
+  meanConfidence?: number;
+}
+
+export interface ExtractedDoc {
+  meta: ExtractedDocMeta;
   text: string;
-  pages: ExtractedPage[] | null;
+  pages: ExtractedPage[];
   method: ExtractionMethod;
+  warnings: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -65,25 +74,36 @@ export interface AnalyzeRequestBody {
   text: string;
 }
 
-export type SuggestionCategory =
-  | "hook"
-  | "length"
-  | "hashtags"
-  | "cta"
-  | "readability"
-  | "tone";
+export type SuggestionCategory = "hook" | "length" | "hashtags" | "cta" | "clarity" | "tone";
 
-export type SuggestionSeverity = "info" | "suggestion" | "warning";
+export type SuggestionSeverity = "high" | "medium" | "low";
 
-export interface EngagementSuggestion {
+export interface Suggestion {
   id: string;
   category: SuggestionCategory;
-  message: string;
   severity: SuggestionSeverity;
+  /** Imperative, <=60 chars. */
+  title: string;
+  /** <=240 chars. */
+  detail: string;
+  example?: string;
 }
 
-export interface AnalyzeResponseData {
-  summary: string;
+/**
+ * PROVISIONAL — S0-Q1's DECISION confirmed AnalysisResult "gains full metrics{}
+ * and model:string" and that readability:number lives inside metrics, but didn't
+ * enumerate the rest of the fields. See S0-Q3. Adjust this interface (not the
+ * others in this file) once that lands.
+ */
+export interface AnalysisMetrics {
   wordCount: number;
-  suggestions: EngagementSuggestion[];
+  charCount: number;
+  readability: number;
+}
+
+export interface AnalysisResult {
+  summary: string;
+  metrics: AnalysisMetrics;
+  suggestions: Suggestion[];
+  model: string;
 }
