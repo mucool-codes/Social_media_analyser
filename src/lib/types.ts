@@ -89,21 +89,22 @@ export interface Suggestion {
   example?: string;
 }
 
-/**
- * PROVISIONAL — S0-Q1's DECISION confirmed AnalysisResult "gains full metrics{}
- * and model:string" and that readability:number lives inside metrics, but didn't
- * enumerate the rest of the fields. See S0-Q3. Adjust this interface (not the
- * others in this file) once that lands.
- */
 export interface AnalysisMetrics {
   wordCount: number;
   charCount: number;
-  readability: number;
+  hashtagCount: number;
+  mentionCount: number;
+  emojiCount: number;
+  linkCount: number;
+  /** Flesch reading ease, 0-100. */
+  readingEase: number;
 }
 
 export interface AnalysisResult {
   summary: string;
   metrics: AnalysisMetrics;
   suggestions: Suggestion[];
+  /** Free-text label. Exactly "heuristic-fallback" when Gemini wasn't used — the
+   * only value the UI special-cases (for badge colour); anything else prints as-is. */
   model: string;
 }
