@@ -2,7 +2,7 @@ import { act } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAnalyzer } from "@/lib/client/useAnalyzer";
 import * as apiClient from "@/lib/client/apiClient";
-import * as ocr from "@/lib/client/extractFromImage";
+import * as ocr from "@/lib/extract/ocr";
 import type { AnalysisResult, ExtractedDoc } from "@/lib/types";
 import { renderHook, waitFor } from "./testUtils";
 
@@ -165,6 +165,31 @@ describe("useAnalyzer", () => {
     expect(result.current.result).toEqual(RESULT);
   });
 
+  it("ignores a same-tick double-click on retryAnalysis instead of firing two requests", async () => {
+    vi.spyOn(apiClient, "extractPdf").mockResolvedValue({ ok: true, data: DOC });
+    const analyzeSpy = vi
+      .spyOn(apiClient, "analyzeText")
+      .mockResolvedValueOnce({ ok: false, error: { code: "ANALYSIS_FAILED", message: "nope" } })
+      .mockResolvedValueOnce({ ok: true, data: RESULT });
+
+    const { result } = renderHook(() => useAnalyzer());
+    act(() => result.current.selectFile(PDF_FILE));
+    await waitFor(() => expect(result.current.status).toBe("error"));
+
+    // Both calls happen synchronously in the same act(), simulating two click
+    // handlers firing before React re-renders to remove the retry button.
+    act(() => {
+      result.current.retryAnalysis();
+      result.current.retryAnalysis();
+    });
+
+    await waitFor(() => expect(result.current.status).toBe("done"));
+    // 1 automatic post-extraction analysis (mocked to fail, driving status to
+    // "error") + 1 retry — the second, same-tick retry click must be suppressed.
+    expect(analyzeSpy).toHaveBeenCalledTimes(2);
+    expect(result.current.result).toEqual(RESULT);
+  });
+
   it("reset returns to idle and discards prior state", async () => {
     vi.spyOn(apiClient, "extractPdf").mockResolvedValue({ ok: true, data: DOC });
     vi.spyOn(apiClient, "analyzeText").mockResolvedValue({ ok: true, data: RESULT });
@@ -178,5 +203,56 @@ describe("useAnalyzer", () => {
     expect(result.current.status).toBe("idle");
     expect(result.current.doc).toBeNull();
     expect(result.current.result).toBeNull();
+  });
+
+  it("ignores a stale extraction response when a second file is picked before the first resolves", async () => {
+    const SECOND_DOC: ExtractedDoc = {
+      ...DOC,
+      meta: { ...DOC.meta, fileName: "second.pdf" },
+      text: "Second file's text",
+    };
+    let resolveFirst!: (value: Awaited<ReturnType<typeof apiClient.extractPdf>>) => void;
+    const firstExtraction = new Promise<Awaited<ReturnType<typeof apiClient.extractPdf>>>((resolve) => {
+      resolveFirst = resolve;
+    });
+
+    vi.spyOn(apiClient, "extractPdf")
+      .mockReturnValueOnce(firstExtraction)
+      .mockResolvedValueOnce({ ok: true, data: SECOND_DOC });
+    vi.spyOn(apiClient, "analyzeText").mockResolvedValue({ ok: true, data: RESULT });
+
+    const { result } = renderHook(() => useAnalyzer());
+
+    act(() => result.current.selectFile(PDF_FILE));
+    expect(result.current.status).toBe("extracting");
+
+    const secondFile = new File(["%PDF-1.7 fake 2"], "second.pdf", { type: "application/pdf" });
+    act(() => result.current.selectFile(secondFile));
+
+    await waitFor(() => expect(result.current.status).toBe("done"));
+    expect(result.current.doc).toEqual(SECOND_DOC);
+
+    // The first (stale) extraction finally resolves — it must not clobber the
+    // second file's result, which is already showing.
+    act(() => resolveFirst({ ok: true, data: DOC }));
+    await Promise.resolve();
+
+    expect(result.current.doc).toEqual(SECOND_DOC);
+    expect(result.current.status).toBe("done");
+  });
+
+  it("reportValidationError surfaces a clear, recoverable error without calling any API", () => {
+    const extractPdfSpy = vi.spyOn(apiClient, "extractPdf");
+    const { result } = renderHook(() => useAnalyzer());
+
+    act(() => result.current.reportValidationError("Please upload one file at a time."));
+
+    expect(result.current.status).toBe("error");
+    expect(result.current.errorPhase).toBe("validation");
+    expect(result.current.error).toEqual({
+      code: "VALIDATION_ERROR",
+      message: "Please upload one file at a time.",
+    });
+    expect(extractPdfSpy).not.toHaveBeenCalled();
   });
 });

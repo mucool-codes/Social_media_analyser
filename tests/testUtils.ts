@@ -2,10 +2,8 @@ import { act, createElement, type ReactElement } from "react";
 import { createRoot, type Root } from "react-dom/client";
 
 /**
- * A minimal render/query harness standing in for @testing-library/react, whose peer
- * dependency @testing-library/dom isn't installed, and for `renderHook`. Rebuilding this
- * locally (react-dom/client + React's own `act`) avoids editing vitest.config.ts / package.json,
- * which are outside this session's file ownership — see the end-of-session summary (S3-Q2).
+ * A minimal render/query harness standing in for @testing-library/react and
+ * `renderHook`, built on react-dom/client + React's own `act`.
  */
 
 export interface RenderResult {

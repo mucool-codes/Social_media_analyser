@@ -41,7 +41,11 @@ export function AnalyzerApp() {
                 onDismiss={analyzer.dismissError}
               />
             )}
-            <Dropzone onFileSelected={analyzer.selectFile} tone={status === "error" ? "error" : "default"} />
+            <Dropzone
+              onFileSelected={analyzer.selectFile}
+              onRejected={analyzer.reportValidationError}
+              tone={status === "error" ? "error" : "default"}
+            />
             <InfoCards />
           </>
         )}

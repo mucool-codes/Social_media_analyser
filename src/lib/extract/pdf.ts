@@ -1,6 +1,12 @@
+// Must load before the PDFParse import below — it registers the Node worker
+// entry point pdfjs-dist needs. Without it, Next's server bundle can't resolve
+// pdf.worker.mjs relative to the compiled route file and every parse fails at
+// runtime (not at build time, so `next build` won't catch it).
+import "pdf-parse/worker";
 import { PasswordException, PDFParse } from "pdf-parse";
 import { MAX_PDF_PAGES } from "@/lib/config";
 import type { ApiErrorCode, ExtractedDoc, ExtractedPage } from "@/lib/types";
+import { logger } from "@/lib/http";
 import { normalizeText } from "./format";
 
 /** Carries an ApiErrorCode out of extractFromPdf so the route can respond with
@@ -71,6 +77,7 @@ export async function extractFromPdf(buffer: Buffer, filename: string): Promise<
         "This PDF is password-protected. Please upload an unlocked copy.",
       );
     }
+    logger.error("extractFromPdf: unexpected parse failure", error);
     throw new ExtractionError(
       "PARSE_FAILED",
       "Couldn't read this PDF — it may be corrupted or in an unsupported format.",
