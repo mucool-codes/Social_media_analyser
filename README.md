@@ -3,7 +3,7 @@
 Upload a PDF or a photo of a social media post; get the text back cleanly formatted,
 plus concrete suggestions for improving engagement.
 
-**Live:** _pending — see [Outstanding](#outstanding)_
+**Live:** https://social-media-analyser-tau.vercel.app
 **Repo:** https://github.com/mucool-codes/Social_media_analyser
 
 <p align="center">
@@ -192,11 +192,32 @@ docs/                        APPROACH.md, ARCHITECTURE.md, screenshots
 | Documentation (this session): README, ARCHITECTURE.md, APPROACH.md, deployment verification | ~1h |
 | **Total** | **~7h**, ~1h under budget |
 
+## Deployment verification
+
+Verified against the live URL above (not just `localhost` — Tesseract's CDN worker
+paths and `pdf-parse`'s bundling have both broken in production-only ways for this
+stack even when `npm run build` passes locally):
+
+- **PDF extraction**, both via the UI and a direct `curl -F file=@...` to
+  `/api/extract`, against two different sample PDFs — correct text, page count, and
+  duration back each time.
+- **OCR extraction**, via the UI, against a real rendered image (no scanned-image
+  fixture ships in `sample-data/`, see its README) — 94% confidence, correct text, no
+  low-confidence warning misfire.
+- **No Tesseract worker 404s, no `pdf-parse` errors, and no browser console errors**
+  across either flow (checked via full request/response and console monitoring, not
+  just visual inspection).
+- **Gemini path confirmed live**, not just the heuristic fallback: the suggestions
+  panel showed `GEMINI-3.6-FLASH` with genuinely LLM-generated suggestions (e.g.
+  catching that the sample post's headline promised "five tips" but only listed three —
+  not something the rule-based heuristics check for). This was the thing to double-check
+  given `gemini-2.0-flash` broke here once already — confirmed fixed, not assumed.
+  4 direct calls to `/api/analyze` returned `gemini-3.6-flash` 3 times and
+  `heuristic-fallback` once; the one fallback is consistent with hitting Gemini's own
+  free-tier rate limit under back-to-back test traffic, not a broken integration — and
+  is exactly the graceful-degradation path this app is designed to fall back to when it
+  happens.
+
 ## Outstanding
 
-- **Live URL.** Not yet available at the time of writing — see the top of this file.
-  Once deployed, verify the deployed URL specifically (not just `localhost`) with a real
-  PDF and a real scanned image: Tesseract's CDN worker paths and `pdf-parse`'s bundling
-  have both broken in production-only ways for this stack (see
-  [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)) even when `npm run build` passes locally.
-- Add the live URL to this repository's GitHub "About" field once deployed.
+- Add the live URL to this repository's GitHub "About" field.
