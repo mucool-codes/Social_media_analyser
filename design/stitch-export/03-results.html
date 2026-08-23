@@ -1,0 +1,233 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Content Analyzer - Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e9e7",
+                        "on-tertiary-container": "#7a8592",
+                        "on-secondary-fixed-variant": "#414c00",
+                        "inverse-primary": "#c3c7cc",
+                        "tertiary": "#000000",
+                        "surface-bright": "#f7faf8",
+                        "on-tertiary-fixed-variant": "#3d4853",
+                        "surface-container-highest": "#e0e3e1",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#5b5f63",
+                        "inverse-on-surface": "#eef1ef",
+                        "outline": "#75777b",
+                        "surface": "#f7faf8",
+                        "on-secondary-fixed": "#191e00",
+                        "secondary": "#576500",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e0e3e1",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#808489",
+                        "primary-fixed-dim": "#c3c7cc",
+                        "tertiary-fixed": "#d8e4f2",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#ebefed",
+                        "tertiary-fixed-dim": "#bcc8d5",
+                        "on-surface-variant": "#44474a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#181c1b",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3130",
+                        "outline-variant": "#c5c6ca",
+                        "primary-fixed": "#e0e3e8",
+                        "primary-container": "#181c20",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#5c6b00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#d5ef4f",
+                        "secondary-container": "#d5ef4f",
+                        "on-tertiary-fixed": "#121d27",
+                        "background": "#f7faf8",
+                        "on-background": "#181c1b",
+                        "surface-dim": "#d7dbd9",
+                        "on-primary-fixed-variant": "#43474c",
+                        "surface-container-low": "#f1f4f2",
+                        "tertiary-container": "#121d27",
+                        "secondary-fixed-dim": "#b9d234",
+                        "on-primary-fixed": "#181c20",
+                        
+                        /* Industrial Acid Theme Overrides/Additions to map to requested colors */
+                        "ind-bg": "#EDF0EE",
+                        "ind-surface": "#FFFFFF",
+                        "ind-ink": "#14181C",
+                        "ind-accent": "#D8F252",
+                        "ind-muted": "#5B6672",
+                        "ind-border": "#D5DAD7",
+                        "ind-high": "#C8402F",
+                        "ind-med": "#E0912F"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "ind": "4px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "max-width": "1200px",
+                        "base": "24px",
+                        "xl": "48px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-main": ["Inter"],
+                        "body-medium": ["Inter"],
+                        "headline-h1": ["Space Grotesk"],
+                        "headline-h2": ["Space Grotesk"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "label-mono": ["IBM Plex Mono"],
+                        "headline-h1-mobile": ["Space Grotesk"],
+                        "body-small": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-main": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-medium": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "500"}],
+                        "headline-h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-h2": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-mono": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "400"}],
+                        "headline-h1-mobile": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-small": ["14px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ruled-paper {
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #D5DAD7 31px, #D5DAD7 32px);
+            line-height: 32px; /* Matches 32px grid */
+        }
+        .highlight-acid {
+            background-color: #D8F252;
+            padding: 2px 4px;
+            margin: -2px -4px;
+        }
+    </style>
+</head>
+<body class="bg-ind-bg text-ind-ink font-body-main min-h-screen flex flex-col">
+<!-- TopNavBar (From JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows docked full-width top-0">
+<div class="flex items-center gap-md"><div class="w-4 h-4 bg-ind-accent rounded-sm"></div>
+<span class="font-headline-h2 text-headline-h2 font-semibold text-on-surface dark:text-inverse-on-surface">Content Analyzer</span>
+</div>
+<nav class="hidden md:flex items-center gap-base">
+<a class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed hover:underline transition-opacity duration-150 active:opacity-70" href="#">GITHUB</a>
+</nav>
+<div class="flex items-center"><span class="w-2 h-2 rounded-full mr-xs" style="background-color: rgb(46, 125, 91);"></span>
+<span class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container">ANALYSIS ONLINE</span>
+</div>
+</header>
+<main class="flex-grow pt-[88px] pb-xl px-lg md:px-base max-w-[1200px] mx-auto w-full flex flex-col gap-base">
+<!-- Compact Result Bar -->
+<div class="bg-ind-surface border border-ind-border rounded-ind p-md flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="flex flex-wrap items-center gap-sm">
+<span class="font-data-mono text-data-mono font-semibold">instagram-post-scan.jpg</span>
+<span class="h-4 w-[1px] bg-ind-border mx-sm"></span>
+<span class="font-label-mono text-label-mono text-ind-muted uppercase">OCR</span>
+<span class="h-4 w-[1px] bg-ind-border mx-sm"></span>
+<span class="font-label-mono text-label-mono text-ind-muted uppercase">1 PAGE</span>
+<span class="h-4 w-[1px] bg-ind-border mx-sm"></span>
+<span class="font-label-mono text-label-mono text-ind-muted uppercase">1.8 S</span>
+<span class="h-4 w-[1px] bg-ind-border mx-sm"></span>
+<span class="font-label-mono text-label-mono text-ind-muted uppercase">CONFIDENCE 87%</span>
+</div>
+<button class="bg-ind-surface border border-ind-border text-ind-ink font-label-mono text-label-mono px-md py-sm rounded-ind hover:bg-ind-bg transition-colors">Analyze another file</button>
+</div>
+<!-- Two Column Layout -->
+<div class="flex flex-col md:flex-row gap-base">
+<!-- Left Column: Extracted Text (58%) -->
+<div class="w-full md:w-[58%] flex flex-col gap-md">
+<div class="bg-ind-surface border border-ind-border rounded-ind overflow-hidden flex flex-col h-full">
+<!-- Card Header -->
+<div class="flex justify-between items-center p-md border-b border-ind-border">
+<h2 class="font-headline-h2 text-headline-h2 text-base">Extracted text</h2>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs text-ind-muted hover:text-ind-ink transition-colors">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span class="font-label-mono text-label-mono uppercase">Copy</span>
+</button>
+<button class="flex items-center gap-xs text-ind-muted hover:text-ind-ink transition-colors ml-sm">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span class="font-label-mono text-label-mono uppercase">Download .txt</span>
+</button>
+</div>
+</div>
+<!-- Notice Strip -->
+<div class="bg-[#FFF8E7] border-l border-ind-med p-sm px-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-ind-med text-[18px]">warning</span>
+<span class="font-body-small text-body-small text-ind-ink">Two words scored below 60% confidence. They're highlighted below.</span>
+</div>
+<!-- Text Body -->
+<div class="p-md flex-grow">
+<div class="font-data-mono text-data-mono text-ind-ink ruled-paper min-h-[300px] whitespace-pre-wrap pt-[4px]">Finally sat down to write about the new project. 🚀 It's been a long time coming but we're almost there. The process was <span class="highlight-acid">challenging</span> but <span class="highlight-acid">rewarding</span>. Can't wait to share more with you all! #worklife #design #process #coding #startup #launch
+                        </div>
+<!-- Page Divider -->
+<div class="relative my-xl flex items-center justify-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-ind-border"></div>
+</div>
+<div class="relative bg-ind-surface px-md font-label-mono text-label-mono text-ind-muted">PAGE 2</div>
+</div>
+<div class="font-data-mono text-data-mono text-ind-ink ruled-paper min-h-[100px] whitespace-pre-wrap pt-[4px] opacity-40">...</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Suggestions (42%) -->
+<div class="w-full md:w-[42%] flex flex-col gap-md">
+<div class="flex justify-between items-center pb-sm border-b border-ind-border">
+<h2 class="font-headline-h2 text-headline-h2 text-base">Suggestions</h2>
+<span class="font-label-mono text-label-mono text-ind-muted uppercase">4 FOUND · GEMINI</span>
+</div>
+<div class="flex flex-col gap-[12px]">
+<!-- Card 1 -->
+<div class="bg-ind-surface border border-ind-border border-l-4 border-l-ind-high rounded-ind p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm"><div class="flex items-center justify-between w-full"><div class="flex items-center gap-sm"><span class="bg-ind-bg text-ind-ink font-label-mono text-[10px] px-sm py-[2px] rounded-sm uppercase tracking-wider">HOOK</span><h3 class="font-body-medium text-body-medium text-ind-ink leading-tight">Lead with the result, not the setup</h3></div><span class="font-label-mono text-[10px] font-bold" style="color: #C8402F;">HIGH</span></div></div>
+<p class="font-body-small text-body-small text-ind-muted">Your first line is too passive. Start with the outcome to grab attention immediately.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-ind-surface border border-ind-border border-l-4 border-l-ind-high rounded-ind p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm"><div class="flex items-center justify-between w-full"><div class="flex items-center gap-sm"><span class="bg-ind-bg text-ind-ink font-label-mono text-[10px] px-sm py-[2px] rounded-sm uppercase tracking-wider">CTA</span><h3 class="font-body-medium text-body-medium text-ind-ink leading-tight">Ask one clear question at the end</h3></div><span class="font-label-mono text-[10px] font-bold" style="color: #C8402F;">HIGH</span></div></div>
+<div class="bg-ind-bg border-l-[3px] border-l-ind-ink p-sm mt-xs">
+<span class="font-label-mono text-[10px] text-ind-muted uppercase block mb-xs">SUGGESTED REWRITE</span>
+<span class="font-data-mono text-[13px] text-ind-ink leading-snug">What's one project you're currently obsessed with? Let me know below!</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-ind-surface border border-ind-border border-l-4 border-l-ind-med rounded-ind p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm"><div class="flex items-center justify-between w-full"><div class="flex items-center gap-sm"><span class="bg-ind-bg text-ind-ink font-label-mono text-[10px] px-sm py-[2px] rounded-sm uppercase tracking-wider">HASHTAGS</span><h3 class="font-body-medium text-body-medium text-ind-ink leading-tight">Cut from nine hashtags to four</h3></div><span class="font-label-mono text-[10px] font-bold" style="color: #E0912F;">MEDIUM</span></div></div>
+<p class="font-body-small text-body-small text-ind-muted">Too many hashtags dilute engagement. Stick to 3-5 high-relevance tags.</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-ind-surface border border-ind-border border-l-4 border-l-ind-muted rounded-ind p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm"><div class="flex items-center justify-between w-full"><div class="flex items-center gap-sm"><span class="bg-ind-bg text-ind-ink font-label-mono text-[10px] px-sm py-[2px] rounded-sm uppercase tracking-wider">LENGTH</span><h3 class="font-body-medium text-body-medium text-ind-ink leading-tight">Break the third paragraph in two</h3></div><span class="font-label-mono text-[10px] font-bold" style="color: #5B6672;">LOW</span></div></div>
+<p class="font-body-small text-body-small text-ind-muted">Large blocks of text are harder to scan on mobile. Add a line break for better flow.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (From JSON) -->
+<footer class="w-full py-md px-lg flex justify-center items-center text-center opacity-60 bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline flat no shadows full-width bottom-0 mt-auto">
+<span class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-fixed-variant">BUILT WITH NEXT.JS · PDF-PARSE · TESSERACT.JS</span>
+</footer>
+
+
+</body></html>

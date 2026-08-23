@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Content Analyzer - Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#414c00",
+                        "on-surface-variant": "#44474a",
+                        "on-secondary-fixed": "#191e00",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#b9d234",
+                        "on-tertiary-container": "#7a8592",
+                        "surface-container": "#ebefed",
+                        "primary-fixed-dim": "#c3c7cc",
+                        "surface-bright": "#f7faf8",
+                        "primary-fixed": "#e0e3e8",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e0e3e1",
+                        "surface": "#f7faf8",
+                        "outline": "#75777b",
+                        "surface-tint": "#5b5f63",
+                        "on-primary-fixed-variant": "#43474c",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c3c7cc",
+                        "on-primary-container": "#808489",
+                        "secondary-container": "#d5ef4f",
+                        "on-tertiary-fixed": "#121d27",
+                        "outline-variant": "#c5c6ca",
+                        "surface-variant": "#e0e3e1",
+                        "secondary-fixed": "#d5ef4f",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f7faf8",
+                        "surface-container-high": "#e6e9e7",
+                        "primary-container": "#181c20",
+                        "tertiary": "#000000",
+                        "secondary": "#576500",
+                        "inverse-on-surface": "#eef1ef",
+                        "on-secondary-container": "#5c6b00",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#181c1b",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#181c1b",
+                        "surface-container-low": "#f1f4f2",
+                        "primary": "#000000",
+                        "tertiary-fixed-dim": "#bcc8d5",
+                        "on-primary-fixed": "#181c20",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#121d27",
+                        "tertiary-fixed": "#d8e4f2",
+                        "inverse-surface": "#2d3130",
+                        "surface-dim": "#d7dbd9",
+                        "on-tertiary-fixed-variant": "#3d4853",
+                        
+                        // Added specific status colors requested in style guidance
+                        "status-high": "#C8402F",
+                        "status-medium": "#E0912F",
+                        "status-low": "#5B6672",
+                        "acid-lime": "#D8F252"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "card": "4px"
+                    },
+                    spacing: {
+                        "xs": "4px",
+                        "md": "16px",
+                        "max-width": "1200px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "base": "24px",
+                        "xl": "48px",
+                        "mobile-w": "390px"
+                    },
+                    fontFamily: {
+                        "body-medium": ["Inter"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "headline-h1-mobile": ["Space Grotesk"],
+                        "body-main": ["Inter"],
+                        "label-mono": ["IBM Plex Mono"],
+                        "headline-h1": ["Space Grotesk"],
+                        "body-small": ["Inter"],
+                        "headline-h2": ["Space Grotesk"]
+                    },
+                    fontSize: {
+                        "body-medium": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "500" }],
+                        "data-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-h1-mobile": ["28px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-main": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "400" }],
+                        "headline-h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-small": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-h2": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "chip": ["11px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    },
+                    backgroundImage: {
+                        'ruled-paper': 'repeating-linear-gradient(transparent, transparent 23px, #e5e7eb 24px)'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ruled-bg {
+            background-image: repeating-linear-gradient(transparent, transparent 23px, #e0e3e1 24px);
+            background-position: 0 4px; /* Align text visually */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex justify-center min-h-screen pb-[64px]">
+<!-- Mobile Container (390px) -->
+<div class="w-full max-w-[390px] mx-auto bg-background flex flex-col relative overflow-hidden shadow-lg border-x border-outline-variant min-h-screen">
+<!-- TopAppBar (from JSON but modified per prompt) -->
+<header class="fixed top-0 w-full max-w-[390px] z-50 flex items-center px-md h-[56px] bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<!-- Acid lime square mark -->
+<div class="w-4 h-4 bg-acid-lime flex-shrink-0"></div>
+<h1 class="font-headline-h2 text-headline-h2 text-on-surface">Content Analyzer</h1>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col mt-[56px] px-md py-lg gap-base">
+<!-- Compact Result Bar -->
+<section class="flex flex-col gap-sm">
+<div class="font-data-mono text-data-mono text-on-surface">
+                    instagram-post-scan.jpg
+                </div>
+<div class="flex flex-wrap items-center gap-2 font-data-mono text-chip text-on-surface-variant uppercase">
+<span>OCR</span>
+<span class="w-[1px] h-3 bg-outline-variant"></span>
+<span>1 PAGE</span>
+<span class="w-[1px] h-3 bg-outline-variant"></span>
+<span>1.8 S</span>
+<span class="w-[1px] h-3 bg-outline-variant"></span>
+<span>CONFIDENCE 87%</span>
+</div>
+</section>
+<!-- Extracted Text Card -->
+<section class="flex flex-col gap-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-card overflow-hidden">
+<!-- Card Header & Actions -->
+<div class="p-md border-b border-outline-variant">
+<h2 class="font-headline-h2 text-[16px] mb-md">Extracted text</h2>
+<div class="flex gap-sm">
+<button class="flex-1 h-[44px] border border-outline-variant font-label-mono text-label-mono uppercase hover:border-primary focus:border-2 focus:border-primary outline-none transition-colors">
+                                COPY
+                            </button>
+<button class="flex-1 h-[44px] border border-outline-variant font-label-mono text-label-mono uppercase hover:border-primary focus:border-2 focus:border-primary outline-none transition-colors">
+                                DOWNLOAD .TXT
+                            </button>
+</div>
+</div>
+<!-- Amber Notice -->
+<div class="bg-status-medium/10 border-b border-outline-variant p-sm px-md flex items-start gap-sm">
+<span class="material-symbols-outlined text-status-medium text-[18px]">warning</span>
+<p class="font-body-small text-body-small text-on-surface">
+                            Two words scored below 60% confidence. They're highlighted below.
+                        </p>
+</div>
+<!-- Ruled Body -->
+<div class="relative h-[240px] overflow-hidden">
+<div class="absolute inset-0 p-md ruled-bg font-data-mono text-data-mono leading-[24px]">
+                            Just finished a massive 12-hour session on the new prototype. The design phase was somewhat <span class="bg-acid-lime text-primary px-1">challenging</span>, but bringing the interactive components to life is always incredibly <span class="bg-acid-lime text-primary px-1">rewarding</span>. 
+                            <br/><br/>
+                            Can't wait to share the final build with the community next week. #uiux #designsystem #coding
+                            <br/><br/>
+                            What tools are you all using for high-fidelity prototyping these days?
+                        </div>
+<!-- Soft White Fade -->
+<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+</div>
+</div>
+<!-- Show all text button -->
+<button class="w-full h-[44px] font-headline-h2 text-[14px] text-on-surface hover:bg-surface-variant transition-colors flex justify-center items-center">
+                    Show all text
+                </button>
+</section>
+<!-- Suggestions Section -->
+<section class="flex flex-col gap-sm"><div class="flex justify-between items-center mb-xs">
+<h2 class="font-headline-h2 text-[16px]">Suggestions</h2>
+<div class="font-data-mono text-chip text-on-surface-variant uppercase">
+                        4 FOUND · GEMINI
+                    </div>
+</div>
+<!-- Card 1: HOOK -->
+<div class="bg-surface-container-lowest border border-outline-variant border-l-4 border-l-status-high rounded-card p-md flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<span class="bg-surface-variant px-2 py-1 font-data-mono text-chip text-on-surface uppercase border border-outline-variant">HOOK</span>
+<span class="font-data-mono text-chip uppercase text-status-high">HIGH</span>
+</div>
+<div class="font-body-medium text-on-surface">Lead with the result, not the setup</div>
+<p class="font-body-small text-body-small">
+                        The current hook "Just finished a massive 12-hour session..." is descriptive but lacks immediate intrigue for the reader. Consider starting with the result or a question.
+                    </p>
+</div>
+<!-- Card 2: CTA -->
+<div class="bg-surface-container-lowest border border-outline-variant border-l-4 border-l-status-high rounded-card p-md flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<span class="bg-surface-variant px-2 py-1 font-data-mono text-chip text-on-surface uppercase border border-outline-variant">CTA</span>
+<span class="font-data-mono text-chip uppercase text-status-high">HIGH</span>
+</div>
+<div class="font-body-medium text-on-surface">Ask one clear question at the end</div>
+<div class="mt-sm border-l-[3px] border-primary bg-surface-container p-sm rounded-sm">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-2 uppercase">SUGGESTED REWRITE</div>
+<p class="font-data-mono text-data-mono whitespace-pre-line">
+Can't wait to share the final build with the community next week! 
+
+What tools are you all using for high-fidelity prototyping these days? 
+
+#uiux #designsystem #coding
+                        </p>
+</div>
+</div>
+<!-- Card 3: HASHTAGS -->
+<div class="bg-surface-container-lowest border border-outline-variant border-l-4 border-l-status-medium rounded-card p-md flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<span class="bg-surface-variant px-2 py-1 font-data-mono text-chip text-on-surface uppercase border border-outline-variant">HASHTAGS</span>
+<span class="font-data-mono text-chip uppercase text-status-medium">MEDIUM</span>
+</div>
+<div class="font-body-medium text-on-surface">Cut from nine hashtags to four</div>
+<p class="font-body-small text-body-small">
+                        Too many hashtags dilute engagement. Stick to 3-5 high-relevance tags.
+                    </p>
+</div>
+<!-- Card 4: LENGTH -->
+<div class="bg-surface-container-lowest border border-outline-variant border-l-4 border-l-status-low rounded-card p-md flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<span class="bg-surface-variant px-2 py-1 font-data-mono text-chip text-on-surface uppercase border border-outline-variant">LENGTH</span>
+<span class="font-data-mono text-chip uppercase text-on-surface-variant">LOW</span>
+</div>
+<div class="font-body-medium text-on-surface">Break the third paragraph in two</div>
+<p class="font-body-small text-body-small">
+                        Large blocks of text are harder to scan on mobile. Add a line break for better flow.
+                    </p>
+</div></section>
+</main>
+<!-- Sticky Bottom Bar -->
+<div class="fixed bottom-0 w-full max-w-[390px] z-50 bg-surface-container-lowest border-t border-outline-variant p-md h-[64px] flex items-center justify-center">
+<button class="w-full h-[44px] bg-acid-lime text-primary font-headline-h2 text-[14px] hover:opacity-90 active:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                Analyze another file
+            </button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Social Media Content Analyzer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-background": "#14181C",
+                "surface-container-high": "#e6e9e7",
+                "success": "#2E7D5B",
+                "outline-variant": "#D5DAD7",
+                "surface-tint": "#5b5f63",
+                "on-secondary-fixed-variant": "#414c00",
+                "on-tertiary-container": "#8c8277",
+                "on-tertiary-fixed-variant": "#4e453c",
+                "on-surface-variant": "#5B6672",
+                "secondary-fixed-dim": "#b9d234",
+                "surface-container": "#ebefed",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#FFFFFF",
+                "primary": "#14181C",
+                "primary-fixed-dim": "#c3c7cc",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed": "#D8F252",
+                "surface-container-low": "#EDF0EE",
+                "secondary": "#576500",
+                "primary-fixed": "#e0e3e8",
+                "on-primary-fixed": "#181c20",
+                "primary-container": "#181c20",
+                "on-primary-fixed-variant": "#43474c",
+                "on-secondary-fixed": "#191e00",
+                "tertiary-fixed-dim": "#d1c5b8",
+                "inverse-surface": "#2d3130",
+                "tertiary-fixed": "#eee0d3",
+                "severity-high": "#C8402F",
+                "inverse-on-surface": "#eef1ef",
+                "outline": "#75777b",
+                "on-secondary-container": "#5c6b00",
+                "surface-dim": "#d7dbd9",
+                "surface-container-highest": "#e0e3e1",
+                "on-primary": "#ffffff",
+                "tertiary-container": "#211b12",
+                "severity-medium": "#E0912F",
+                "inverse-primary": "#c3c7cc",
+                "tertiary": "#000000",
+                "on-secondary": "#ffffff",
+                "surface-bright": "#f7faf8",
+                "on-surface": "#14181C",
+                "severity-low": "#5B6672",
+                "on-error": "#ffffff",
+                "error-container": "#ffdad6",
+                "secondary-container": "#D8F252",
+                "on-tertiary-fixed": "#211b12",
+                "background": "#EDF0EE",
+                "on-error-container": "#93000a",
+                "error": "#ba1a1a",
+                "on-primary-container": "#808489",
+                "surface-variant": "#e0e3e1"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "xs": "4px",
+                "gutter": "24px",
+                "lg": "24px",
+                "md": "16px",
+                "xl": "48px",
+                "margin-desktop": "24px",
+                "sm": "8px",
+                "max-width": "1200px",
+                "margin-mobile": "16px",
+                "base": "24px"
+        },
+        "fontFamily": {
+                "data-mono": [
+                        "IBM Plex Mono"
+                ],
+                "body-main": [
+                        "Inter"
+                ],
+                "body-medium": [
+                        "Inter"
+                ],
+                "headline-h2": [
+                        "Space Grotesk"
+                ],
+                "label-mono": [
+                        "IBM Plex Mono"
+                ],
+                "headline-h1-mobile": [
+                        "Space Grotesk"
+                ],
+                "headline-h1": [
+                        "Space Grotesk"
+                ],
+                "body-small": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "data-mono": [
+                        "14px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-main": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-medium": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "letterSpacing": "0",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-h2": [
+                        "20px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-mono": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.08em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-h1-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-h1": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-small": [
+                        "14px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&amp;family=IBM+Plex+Mono:wght@400&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .bracket-tl { top: 16px; left: 16px; border-top: 2px solid #14181C; border-left: 2px solid #14181C; width: 24px; height: 24px; position: absolute; }
+        .bracket-tr { top: 16px; right: 16px; border-top: 2px solid #14181C; border-right: 2px solid #14181C; width: 24px; height: 24px; position: absolute; }
+        .bracket-bl { bottom: 16px; left: 16px; border-bottom: 2px solid #14181C; border-left: 2px solid #14181C; width: 24px; height: 24px; position: absolute; }
+        .bracket-br { bottom: 16px; right: 16px; border-bottom: 2px solid #14181C; border-right: 2px solid #14181C; width: 24px; height: 24px; position: absolute; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface font-body-main min-h-screen flex flex-col pt-[64px]">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 px-base flex justify-between items-center h-[64px] bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<div class="w-[20px] h-[20px] bg-secondary-fixed flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">assessment</span>
+</div>
+<span class="font-headline-h2 text-headline-h2 font-semibold text-primary">Content Analyzer</span>
+</div>
+<div class="flex items-center gap-base">
+<a class="font-label-mono text-label-mono uppercase text-on-surface hover:text-primary transition-colors cursor-pointer" href="#">GITHUB</a>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<span class="font-label-mono text-label-mono uppercase text-on-surface-variant">ANALYSIS ONLINE</span>
+</div>
+</div>
+</nav>
+<main class="flex-grow w-full max-w-max-width mx-auto px-base md:px-lg py-xl flex flex-col gap-xl">
+<!-- Intro -->
+<section class="max-w-[640px]">
+<p class="font-label-mono text-label-mono uppercase text-on-surface-variant mb-sm">PDF PARSING · OCR · ENGAGEMENT ANALYSIS</p>
+<h1 class="font-headline-h1 text-headline-h1 text-primary mb-md">Read the post. Then improve it.</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">Upload a PDF or a photo of a social media post. The text comes out formatted, and you get specific suggestions for engagement.</p>
+</section>
+<!-- Dropzone -->
+<section class="relative w-full h-[320px] bg-surface border border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center p-base transition-colors hover:bg-surface-bright group cursor-pointer">
+<div class="bracket-tl group-hover:border-primary transition-colors"></div>
+<div class="bracket-tr group-hover:border-primary transition-colors"></div>
+<div class="bracket-bl group-hover:border-primary transition-colors"></div>
+<div class="bracket-br group-hover:border-primary transition-colors"></div>
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant mb-md font-light" style="font-variation-settings: 'wght' 200;">description</span>
+<h2 class="font-headline-h2 text-headline-h2 text-primary mb-xs">Drop a file here</h2>
+<p class="font-body-small text-body-small text-on-surface-variant mb-lg">or click to browse</p>
+<button class="bg-secondary-fixed text-primary font-body-medium text-body-medium px-md py-sm rounded border border-primary hover:bg-secondary-fixed-dim transition-colors mb-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+                Choose file
+            </button>
+<p class="font-label-mono text-label-mono uppercase text-on-surface-variant">PDF · PNG · JPG · WEBP — MAX 4 MB</p>
+</section>
+<!-- Info Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-base">
+<div class="bg-surface border border-outline-variant rounded-lg p-lg flex flex-col gap-sm">
+<span class="font-data-mono text-data-mono text-on-surface-variant">01</span>
+<h3 class="font-headline-h2 text-body-medium font-bold text-primary">Upload</h3>
+<p class="font-body-small text-body-small text-on-surface-variant mt-xs">Provide an image or PDF of your social media content.</p>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-lg flex flex-col gap-sm">
+<span class="font-data-mono text-data-mono text-on-surface-variant">02</span>
+<h3 class="font-headline-h2 text-body-medium font-bold text-primary">Extract</h3>
+<p class="font-body-small text-body-small text-on-surface-variant mt-xs">Our system uses OCR to accurately pull all text content.</p>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-lg flex flex-col gap-sm">
+<span class="font-data-mono text-data-mono text-on-surface-variant">03</span>
+<h3 class="font-headline-h2 text-body-medium font-bold text-primary">Improve</h3>
+<p class="font-body-small text-body-small text-on-surface-variant mt-xs">Receive actionable insights to boost engagement metrics.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full max-w-max-width mx-auto px-base py-md flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant bg-surface-container-low mt-xl"><p class="font-label-mono text-[12px] uppercase text-on-surface-variant">BUILT WITH NEXT.JS · PDF-PARSE · TESSERACT.JS</p></footer>
+</body></html>

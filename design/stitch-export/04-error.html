@@ -1,0 +1,151 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Social Media Content Analyzer - File Rejected</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e0e3e1",
+                        "surface": "#f7faf8",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#191e00",
+                        "surface-container": "#ebefed",
+                        "tertiary-fixed-dim": "#bcc8d5",
+                        "on-surface": "#181c1b",
+                        "on-secondary-fixed-variant": "#414c00",
+                        "on-background": "#181c1b",
+                        "on-surface-variant": "#44474a",
+                        "surface-bright": "#f7faf8",
+                        "surface-container-low": "#f1f4f2",
+                        "secondary-fixed-dim": "#b9d234",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#e0e3e8",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#d5ef4f",
+                        "on-tertiary-fixed-variant": "#3d4853",
+                        "secondary": "#576500",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#808489",
+                        "on-tertiary-fixed": "#121d27",
+                        "on-primary-fixed-variant": "#43474c",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#7a8592",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c3c7cc",
+                        "tertiary-fixed": "#d8e4f2",
+                        "on-secondary-container": "#5c6b00",
+                        "surface-container-high": "#e6e9e7",
+                        "inverse-surface": "#2d3130",
+                        "inverse-on-surface": "#eef1ef",
+                        "primary-container": "#181c20",
+                        "on-primary-fixed": "#181c20",
+                        "primary": "#000000",
+                        "outline-variant": "#c5c6ca",
+                        "surface-dim": "#d7dbd9",
+                        "surface-tint": "#5b5f63",
+                        "tertiary-container": "#121d27",
+                        "tertiary": "#000000",
+                        "secondary-container": "#d5ef4f",
+                        "outline": "#75777b",
+                        "inverse-primary": "#c3c7cc",
+                        "surface-variant": "#e0e3e1",
+                        "background": "#f7faf8",
+                        "error-container": "#ffdad6",
+                        "brand-lime": "#D8F252",
+                        "brand-red": "#C8402F",
+                        "brand-green": "#2E7D5B",
+                        "brand-ink": "#14181C",
+                        "brand-muted": "#5B6672",
+                        "brand-border": "#D5DAD7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "max-width": "1200px",
+                        "md": "16px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "base": "24px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-h2": ["Space Grotesk"],
+                        "headline-h1": ["Space Grotesk"],
+                        "label-mono": ["IBM Plex Mono"],
+                        "headline-h1-mobile": ["Space Grotesk"],
+                        "body-main": ["Inter"],
+                        "body-small": ["Inter"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "body-medium": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-h2": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-mono": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "400" }],
+                        "headline-h1-mobile": ["28px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-main": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-small": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "data-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-medium": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#EDF0EE] text-brand-ink min-h-screen flex flex-col font-body-main selection:bg-brand-lime selection:text-brand-ink">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-container-highest fixed top-0 left-0 w-full z-50 px-base flex justify-between items-center h-[64px] border-b border-outline-variant">
+<div class="flex items-center gap-sm"><div class="w-[20px] h-[20px] bg-secondary-fixed flex items-center justify-center rounded"><span class="material-symbols-outlined text-[14px] text-primary">assessment</span></div><span class="font-headline-h2 text-headline-h2 font-semibold text-primary">Content Analyzer</span></div>
+<div class="flex items-center gap-6"><a class="font-label-mono text-label-mono uppercase text-on-surface hover:text-primary transition-colors cursor-pointer" href="#">GITHUB</a><div class="flex items-center gap-xs"><div class="w-2 h-2 rounded-full bg-secondary-fixed"></div><span class="font-label-mono text-label-mono uppercase text-on-surface-variant">ANALYSIS ONLINE</span></div></div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[104px] pb-xl px-base flex flex-col items-center">
+<div class="w-full max-w-max-width flex flex-col gap-8">
+<!-- Page Intro -->
+<div class="flex flex-col gap-2"><p class="font-label-mono text-label-mono uppercase text-on-surface-variant mb-sm">PDF PARSING · OCR · ENGAGEMENT ANALYSIS</p><h1 class="font-headline-h1 text-headline-h1 text-primary mb-md">Read the post. Then improve it.</h1><p class="font-body-main text-body-main text-on-surface-variant">Upload a PDF or a photo of a social media post. The text comes out formatted, and you get specific suggestions for engagement.</p></div>
+<!-- Error Banner -->
+<div class="bg-white border border-brand-red border-l-[3px] rounded-lg p-md flex items-start sm:items-center justify-between gap-4 shadow-sm w-full">
+<div class="flex items-start sm:items-center gap-4">
+<span class="material-symbols-outlined text-brand-red" data-icon="warning" style="font-variation-settings: 'wght' 200;">warning</span>
+<div class="flex flex-col gap-1">
+<span class="font-headline-h2 text-[15px] text-brand-ink">That file is 9.4 MB. The limit is 4 MB.</span>
+<span class="font-body-small text-body-small text-brand-muted">Try exporting the PDF at a lower quality, or upload a screenshot of the post instead.</span>
+</div>
+</div>
+<div class="flex items-center gap-4 shrink-0 mt-2 sm:mt-0">
+<button class="bg-white border border-brand-border text-brand-ink font-body-medium text-body-medium px-4 py-2 rounded-DEFAULT hover:border-brand-ink focus:border-brand-ink focus:border-2 outline-none transition-all">
+                        Choose another file
+                    </button>
+<span class="material-symbols-outlined text-brand-muted cursor-pointer hover:text-brand-ink transition-colors text-[16px]" data-icon="close">close</span>
+</div>
+</div>
+<!-- Dropzone (Rejecting State) -->
+<div class="relative bg-brand-red/5 border-2 border-dashed border-brand-red rounded-lg p-12 flex flex-col items-center justify-center min-h-[400px] transition-colors group">
+<!-- Registration Brackets -->
+<div class="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-brand-red"></div>
+<div class="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-brand-red"></div>
+<div class="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-brand-red"></div>
+<div class="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-brand-red"></div>
+<div class="flex flex-col items-center gap-6 text-center z-10"><span class="material-symbols-outlined text-[48px] text-on-surface-variant mb-md font-light" style="font-variation-settings: &quot;wght&quot; 200;">description</span><h2 class="font-headline-h2 text-headline-h2 text-primary mb-xs">Drop a file here</h2><p class="font-body-small text-body-small text-on-surface-variant mb-lg" style="color: rgb(91, 102, 114);">or click to browse</p><button class="bg-secondary-fixed text-primary font-body-medium text-body-medium px-md py-sm rounded border border-primary hover:bg-secondary-fixed-dim transition-colors mb-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">Choose file</button><p class="font-label-mono text-label-mono uppercase text-on-surface-variant">PDF · PNG · JPG · WEBP — MAX 4 MB</p></div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-surface-container-low w-full py-md border-t border-outline-variant mt-auto"><div class="w-full max-w-max-width mx-auto px-base py-md flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-low"><p class="font-label-mono text-[12px] uppercase" style="color: rgb(91, 102, 114);">BUILT WITH NEXT.JS · PDF-PARSE · TESSERACT.JS</p></div></footer>
+
+
+</body></html>

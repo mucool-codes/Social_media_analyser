@@ -1,0 +1,195 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Processing State - Content Analyzer</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#181c20",
+                        "on-secondary-container": "#5c6b00",
+                        "inverse-primary": "#c3c7cc",
+                        "surface-tint": "#5b5f63",
+                        "tertiary-fixed-dim": "#bcc8d5",
+                        "primary": "#000000",
+                        "on-secondary-fixed": "#191e00",
+                        "on-tertiary-fixed": "#121d27",
+                        "on-error-container": "#93000a",
+                        "on-background": "#181c1b",
+                        "surface-bright": "#f7faf8",
+                        "primary-container": "#181c20",
+                        "inverse-on-surface": "#eef1ef",
+                        "on-tertiary-fixed-variant": "#3d4853",
+                        "background": "#f7faf8",
+                        "on-tertiary-container": "#7a8592",
+                        "surface-container-highest": "#e0e3e1",
+                        "tertiary-container": "#121d27",
+                        "outline": "#75777b",
+                        "surface-container": "#ebefed",
+                        "on-surface": "#181c1b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2d3130",
+                        "secondary-container": "#d5ef4f",
+                        "surface-dim": "#d7dbd9",
+                        "on-primary-fixed-variant": "#43474c",
+                        "primary-fixed": "#e0e3e8",
+                        "surface-container-low": "#f1f4f2",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#414c00",
+                        "on-primary-container": "#808489",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d8e4f2",
+                        "secondary-fixed": "#d5ef4f",
+                        "outline-variant": "#c5c6ca",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e9e7",
+                        "tertiary": "#000000",
+                        "secondary-fixed-dim": "#b9d234",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e0e3e1",
+                        "secondary": "#576500",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c3c7cc",
+                        "surface": "#f7faf8",
+                        "on-surface-variant": "#44474a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "48px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "max-width": "1200px",
+                        "base": "24px"
+                    },
+                    "fontFamily": {
+                        "body-main": ["Inter"],
+                        "body-medium": ["Inter"],
+                        "label-mono": ["IBM Plex Mono"],
+                        "headline-h2": ["Space Grotesk"],
+                        "body-small": ["Inter"],
+                        "headline-h1": ["Space Grotesk"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "headline-h1-mobile": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-main": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-medium": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "500" }],
+                        "label-mono": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "400" }],
+                        "headline-h2": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-small": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-h1-mobile": ["28px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#EDF0EE] text-primary min-h-screen flex flex-col font-body-main antialiased selection:bg-secondary-container selection:text-primary pt-[64px]">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-container-highest fixed top-0 left-0 w-full z-50 px-base flex justify-between items-center h-[64px] border-b border-outline-variant flat no shadows transition-colors">
+<div class="font-headline-h2 text-headline-h2 font-bold text-primary dark:text-on-primary-fixed">Content Analyzer</div>
+<div class="flex items-center gap-md"><div class="flex items-center gap-md"><a href="#" class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors uppercase">GITHUB</a><div class="flex items-center gap-xs"><div class="w-[6px] h-[6px] rounded-full bg-[#D8F252]" style="background-color: rgb(46, 125, 91);"></div><span class="font-label-mono text-label-mono text-[#5B6672] uppercase">ANALYSIS ONLINE</span></div></div></div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-max-width mx-auto px-base py-xl md:py-[48px] flex flex-col gap-lg items-center">
+<!-- Processing Panel -->
+<div class="w-full max-w-max-width bg-surface-container-lowest border border-[#D5DAD7] rounded-lg p-[32px] flex flex-col justify-between h-[220px]">
+<!-- Top Row -->
+<div class="flex justify-between items-start w-full">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-[32px] text-primary font-[200]" data-icon="image">image</span>
+<div class="flex flex-col gap-xs">
+<span class="font-data-mono text-data-mono text-[#14181C]">instagram-post-scan.jpg</span>
+<span class="font-label-mono text-label-mono text-[#5B6672] uppercase">2.1 MB · IMAGE · OCR</span>
+</div>
+</div>
+<button class="font-label-mono text-label-mono text-[#5B6672] hover:text-primary transition-colors cursor-pointer uppercase">Cancel</button>
+</div>
+<!-- Progress Area -->
+<div class="flex flex-col gap-sm w-full">
+<!-- Progress Bar -->
+<div class="w-full h-[6px] bg-[#D5DAD7] rounded-sm overflow-hidden flex">
+<div class="h-full bg-[#D8F252] w-[62%] transition-all duration-300 ease-in-out"></div>
+</div>
+<!-- Progress Text -->
+<div class="flex justify-between w-full font-label-mono text-label-mono text-[#14181C] uppercase mt-xs">
+<span class="">RECOGNISING TEXT — PAGE 1</span>
+<span class="">62%</span>
+</div>
+</div>
+<!-- Stepper -->
+<div class="flex items-center w-full mt-sm">
+<!-- Stage 1 -->
+<div class="flex items-center gap-sm">
+<div class="w-[6px] h-[6px] bg-[#14181C]"></div>
+<span class="font-label-mono text-label-mono text-[#14181C] uppercase">UPLOADED</span>
+</div>
+<!-- Line -->
+<div class="flex-grow h-[1px] bg-[#D5DAD7] mx-md"></div>
+<!-- Stage 2 -->
+<div class="flex items-center gap-sm">
+<div class="w-[6px] h-[6px] bg-[#D8F252] border border-[#14181C]"></div>
+<span class="font-label-mono text-label-mono text-[#14181C] uppercase">EXTRACTING</span>
+</div>
+<!-- Line -->
+<div class="flex-grow h-[1px] bg-[#D5DAD7] mx-md"></div>
+<!-- Stage 3 -->
+<div class="flex items-center gap-sm">
+<div class="w-[6px] h-[6px] border border-[#5B6672]"></div>
+<span class="font-label-mono text-label-mono text-[#5B6672] uppercase">ANALYZING</span>
+</div>
+</div>
+</div>
+<!-- Skeleton Area -->
+<div class="w-full max-w-max-width flex flex-col md:flex-row gap-lg mt-[24px]">
+<!-- Left Card -->
+<div class="w-full md:w-[60%] bg-surface-container-lowest border border-[#D5DAD7] rounded-lg p-lg flex flex-col gap-md">
+<h3 class="font-headline-h2 text-[16px] leading-[1.4] tracking-[-0.01em] font-semibold text-primary">Extracted text</h3>
+<div class="flex flex-col gap-[12px] mt-sm">
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-full rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[95%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[85%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[90%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-full rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[70%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[88%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[60%] rounded-xs"></div>
+</div>
+</div>
+<!-- Right Card -->
+<div class="w-full md:w-[40%] bg-surface-container-lowest border border-[#D5DAD7] rounded-lg p-lg flex flex-col gap-md">
+<h3 class="font-headline-h2 text-[16px] leading-[1.4] tracking-[-0.01em] font-semibold text-primary">Suggestions</h3>
+<div class="flex flex-col gap-[12px] mt-sm">
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[80%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[90%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[75%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[85%] rounded-xs"></div>
+<div class="h-[12px] bg-[#D5DAD7] opacity-40 w-[65%] rounded-xs"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-surface-container-low w-full py-md border-t border-outline-variant flat no shadows mt-auto">
+<div class="w-full max-w-max-width mx-auto px-base flex flex-col md:flex-row justify-between items-center gap-md"><div class="w-full text-center font-label-mono text-[12px] text-[#5B6672] uppercase">BUILT WITH NEXT.JS · PDF-PARSE · TESSERACT.JS</div></div>
+</footer>
+
+
+</body></html>
