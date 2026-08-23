@@ -2,7 +2,7 @@ import { act } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAnalyzer } from "@/lib/client/useAnalyzer";
 import * as apiClient from "@/lib/client/apiClient";
-import * as ocr from "@/lib/client/extractFromImage";
+import * as ocr from "@/lib/extract/ocr";
 import type { AnalysisResult, ExtractedDoc } from "@/lib/types";
 import { renderHook, waitFor } from "./testUtils";
 

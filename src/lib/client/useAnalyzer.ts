@@ -2,7 +2,7 @@
 
 import { useCallback, useReducer, useRef } from "react";
 import { analyzeText, extractPdf } from "@/lib/client/apiClient";
-import { extractFromImage } from "@/lib/client/extractFromImage";
+import { extractFromImage } from "@/lib/extract/ocr";
 import { validateFileMeta } from "@/lib/validation";
 import type { AnalysisResult, ApiError, ExtractedDoc } from "@/lib/types";
 
@@ -127,9 +127,9 @@ export function useAnalyzer(): UseAnalyzerResult {
         doc = response.data;
       } else {
         try {
-          doc = await extractFromImage(file, (progress, label) => {
+          doc = await extractFromImage(file, (p) => {
             if (seq !== requestSeq.current) return;
-            dispatch({ type: "EXTRACTION_PROGRESS", progress, label });
+            dispatch({ type: "EXTRACTION_PROGRESS", progress: p.progress * 100, label: p.status });
           });
         } catch (err) {
           if (seq !== requestSeq.current) return;
