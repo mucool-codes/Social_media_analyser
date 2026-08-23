@@ -86,6 +86,7 @@ function reducer(state: AnalyzerState, action: Action): AnalyzerState {
 
 export interface UseAnalyzerResult extends AnalyzerState {
   selectFile: (file: File) => void;
+  reportValidationError: (message: string) => void;
   retryAnalysis: () => void;
   reset: () => void;
   dismissError: () => void;
@@ -99,16 +100,26 @@ export interface UseAnalyzerResult extends AnalyzerState {
 export function useAnalyzer(): UseAnalyzerResult {
   const [state, dispatch] = useReducer(reducer, initialState);
   const requestSeq = useRef(0);
+  // A fast double-click on "Retry analysis" fires both handlers in the same tick,
+  // before React re-renders to hide the button — requestSeq alone only guarantees
+  // the *final* state is correct, it doesn't stop the wasted duplicate request.
+  const analysisInFlight = useRef(false);
 
   const runAnalysis = useCallback(async (text: string, seq: number) => {
+    if (analysisInFlight.current) return;
+    analysisInFlight.current = true;
     dispatch({ type: "ANALYSIS_STARTED" });
-    const response = await analyzeText(text);
-    if (seq !== requestSeq.current) return;
+    try {
+      const response = await analyzeText(text);
+      if (seq !== requestSeq.current) return;
 
-    if (response.ok) {
-      dispatch({ type: "ANALYSIS_SUCCEEDED", result: response.data });
-    } else {
-      dispatch({ type: "ANALYSIS_FAILED", error: response.error });
+      if (response.ok) {
+        dispatch({ type: "ANALYSIS_SUCCEEDED", result: response.data });
+      } else {
+        dispatch({ type: "ANALYSIS_FAILED", error: response.error });
+      }
+    } finally {
+      analysisInFlight.current = false;
     }
   }, []);
 
@@ -162,8 +173,16 @@ export function useAnalyzer(): UseAnalyzerResult {
     [runExtraction],
   );
 
+  const reportValidationError = useCallback((message: string) => {
+    requestSeq.current += 1;
+    dispatch({ type: "VALIDATION_FAILED", error: { code: "VALIDATION_ERROR", message } });
+  }, []);
+
   const retryAnalysis = useCallback(() => {
-    if (!state.doc) return;
+    // Checked here too (not just inside runAnalysis): bumping requestSeq on a
+    // call that's about to no-op would desync it from the in-flight request's
+    // seq and cause its real result to be discarded as "stale".
+    if (!state.doc || analysisInFlight.current) return;
     const seq = ++requestSeq.current;
     void runAnalysis(state.doc.text, seq);
   }, [state.doc, runAnalysis]);
@@ -177,5 +196,5 @@ export function useAnalyzer(): UseAnalyzerResult {
     dispatch({ type: "DISMISS_ERROR" });
   }, []);
 
-  return { ...state, selectFile, retryAnalysis, reset, dismissError };
+  return { ...state, selectFile, reportValidationError, retryAnalysis, reset, dismissError };
 }

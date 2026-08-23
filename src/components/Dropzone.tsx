@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useId } from "react";
-import { useDropzone, type FileRejection } from "react-dropzone";
+import { ErrorCode, useDropzone, type FileRejection } from "react-dropzone";
 import { ACCEPTED_MIME, MAX_FILE_BYTES } from "@/lib/config";
 import { cx } from "@/lib/client/cx";
 import { DocumentIcon } from "@/components/ui/icons";
@@ -9,6 +9,10 @@ import { textBodySmall, textH2, textLabelMono } from "@/components/ui/tokens";
 
 interface DropzoneProps {
   onFileSelected: (file: File) => void;
+  /** Called instead of onFileSelected when the drop itself is invalid — currently
+   * only "more than one file dropped at once", which react-dropzone otherwise
+   * discards silently rather than rejecting. */
+  onRejected: (message: string) => void;
   disabled?: boolean;
   /** "error" keeps the rejecting (red) styling even when not actively dragging. */
   tone?: "default" | "error";
@@ -34,23 +38,31 @@ const ACCEPT = Object.fromEntries(ACCEPTED_MIME.map((mime) => [mime, EXTENSIONS[
 const ACCEPTED_LABEL = ACCEPTED_MIME.map((mime) => FRIENDLY_LABEL[mime]).join(" · ");
 const MAX_MB = Math.round(MAX_FILE_BYTES / (1024 * 1024));
 
-export function Dropzone({ onFileSelected, disabled = false, tone = "default" }: DropzoneProps) {
+export function Dropzone({ onFileSelected, onRejected, disabled = false, tone = "default" }: DropzoneProps) {
   const describedById = useId();
 
   const handleDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      const tooManyFiles = fileRejections.some((r) => r.errors.some((e) => e.code === ErrorCode.TooManyFiles));
+      if (tooManyFiles) {
+        onRejected("Please upload one file at a time.");
+        return;
+      }
       const file = acceptedFiles[0] ?? fileRejections[0]?.file;
       if (file) onFileSelected(file);
     },
-    [onFileSelected],
+    [onFileSelected, onRejected],
   );
 
+  // multiple:true (rather than react-dropzone's usual multiple:false + maxFiles:1
+  // combo) so a multi-file drop actually reaches onDrop as a real rejection instead
+  // of silently being truncated to the first file before rejection checks run.
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop: handleDrop,
     accept: ACCEPT,
     maxSize: MAX_FILE_BYTES,
     maxFiles: 1,
-    multiple: false,
+    multiple: true,
     disabled,
   });
 
