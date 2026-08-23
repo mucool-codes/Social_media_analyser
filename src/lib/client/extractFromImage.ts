@@ -1,12 +1,13 @@
 import type { ExtractedDoc } from "@/lib/types";
 
 /**
- * TODO(architect): S3-Q1 — temporary stand-in for Session 1's browser-side OCR.
- * Swap this file's contents for `export { extractFromImage } from "@/lib/extract/ocr"`
- * (or update the import site in useAnalyzer.ts) once S1 merges. The signature here —
- * (file, onProgress) => Promise<ExtractedDoc>, throwing on failure — is this session's
- * best guess at the real contract; see the end-of-session summary for the open question
- * about the exact onProgress shape.
+ * Temporary stand-in for Session 1's browser-side OCR. Swap this file's contents for
+ * `export { extractFromImage } from "@/lib/extract/ocr"` (or update the import site in
+ * useAnalyzer.ts) once S1 merges.
+ *
+ * Signature ratified per S3-Q1: (file, onProgress: (progress: number, label: string) => void)
+ * => Promise<ExtractedDoc>, throwing on failure. This is a constraint on S1's real
+ * implementation, not a guess to be revisited.
  */
 
 export type OcrProgressListener = (progress: number, label: string) => void;
