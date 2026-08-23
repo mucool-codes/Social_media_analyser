@@ -53,7 +53,7 @@ describe("analyze", () => {
 
     const result = await analyze("Just shipped a new feature, hope you like it.");
 
-    expect(result.model).toBe("gemini-2.0-flash");
+    expect(result.model).toBe("gemini-3.6-flash");
     expect(result.suggestions).toHaveLength(3);
     expect(result.suggestions[0]?.title).toBe("Add a call-to-action");
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ describe("analyze", () => {
 
     const result = await analyze("Just shipped a new feature, hope you like it.");
 
-    expect(result.model).toBe("gemini-2.0-flash");
+    expect(result.model).toBe("gemini-3.6-flash");
     expect(fetch).toHaveBeenCalledTimes(2);
   });
 
@@ -127,7 +127,7 @@ describe("analyze", () => {
 
     const result = await analyze("hi");
 
-    expect(result.model).toBe("gemini-2.0-flash");
+    expect(result.model).toBe("gemini-3.6-flash");
     expect(result.suggestions.length).toBeGreaterThanOrEqual(3);
     expect(result.suggestions[0]?.title).toBe("Minor tone tweak");
   });

@@ -5,7 +5,13 @@ import { buildHeuristicSummary, computeMetrics, heuristicSuggestions } from "./h
 import { buildSystemPrompt, buildUserPrompt } from "./prompt";
 import { parseModelResponse } from "./schema";
 
-const GEMINI_MODEL = "gemini-2.0-flash";
+// Hardcoded model names are a known fragility: Google periodically retires older
+// Gemini models (gemini-2.0-flash was shut down mid-2026, which is exactly what
+// broke this — see the fallback-reason logging below), and there's no way to detect
+// that ahead of time short of watching Google's release notes. This is the real-world
+// case the heuristic fallback exists for: a bad/stale model name degrades the app to
+// rule-based suggestions instead of failing every analysis request outright.
+const GEMINI_MODEL = "gemini-3.6-flash";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 const TIMEOUT_MS = 12_000;
 const MIN_SUGGESTIONS = 3;
