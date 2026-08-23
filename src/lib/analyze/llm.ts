@@ -61,7 +61,11 @@ async function callGemini(systemPrompt: string, userPrompt: string, apiKey: stri
     throw new GeminiCallError("Gemini rate limit hit.", "rate-limited");
   }
   if (!res.ok) {
-    throw new GeminiCallError(`Gemini returned HTTP ${res.status}.`, "http-error");
+    // Google's error body (e.g. "API key not valid", "models/x is not found",
+    // "quota exceeded") is the actual diagnosable detail — the status code alone
+    // can't distinguish an auth problem from a bad model name from a quota issue.
+    const bodyText = await res.text().catch(() => "");
+    throw new GeminiCallError(`Gemini returned HTTP ${res.status}: ${bodyText.slice(0, 500)}`, "http-error");
   }
 
   const body = (await res.json()) as GeminiResponse;
@@ -72,8 +76,16 @@ async function callGemini(systemPrompt: string, userPrompt: string, apiKey: stri
   return text;
 }
 
+/** error.message already carries the full diagnosable detail (HTTP status + Gemini's
+ * error body, or the underlying fetch/timeout error) — error.reason alone is too
+ * terse to tell an auth failure from a bad model name from a quota error in logs. */
+function describeGeminiFailure(error: unknown): string {
+  if (error instanceof GeminiCallError) return `${error.reason}: ${error.message}`;
+  return `unknown-error: ${error instanceof Error ? error.message : String(error)}`;
+}
+
 function fallbackResult(text: string, metrics: AnalysisMetrics, reason: string): AnalysisResult {
-  logger.warn(`analyze: falling back to heuristics (${reason})`);
+  logger.error(`analyze: falling back to heuristics — ${reason}`);
   const suggestions = heuristicSuggestions(text, metrics);
   return {
     summary: buildHeuristicSummary(metrics, suggestions),
@@ -114,8 +126,7 @@ export async function analyze(text: string): Promise<AnalysisResult> {
   try {
     rawText = await callGemini(systemPrompt, buildUserPrompt(text, metrics), apiKey);
   } catch (error) {
-    const reason = error instanceof GeminiCallError ? error.reason : "unknown-error";
-    return fallbackResult(text, metrics, reason);
+    return fallbackResult(text, metrics, describeGeminiFailure(error));
   }
 
   let parsed = parseModelResponse(rawText);
@@ -125,8 +136,7 @@ export async function analyze(text: string): Promise<AnalysisResult> {
     try {
       rawText = await callGemini(systemPrompt, buildUserPrompt(text, metrics, { terse: true }), apiKey);
     } catch (error) {
-      const reason = error instanceof GeminiCallError ? error.reason : "unknown-error";
-      return fallbackResult(text, metrics, `retry call failed: ${reason}`);
+      return fallbackResult(text, metrics, `retry call failed: ${describeGeminiFailure(error)}`);
     }
     parsed = parseModelResponse(rawText);
   }
